@@ -5,6 +5,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE82732A-A122-4648-BDAF-DCC2214DA249}"
 	ProjectSection(SolutionItems) = preProject
 		Dockerfile = Dockerfile
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pho.Core", "src\Pho.Core\Pho.Core.csproj", "{8AA35ACB-55E5-4B90-95E9-2AC4293BA37D}"
