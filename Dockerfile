@@ -5,6 +5,8 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
+COPY ["src/Pho.Core/Pho.Core.csproj", "Pho.Core/"]
+COPY ["src/Pho.Infrastructure/Pho.Infrastructure.csproj", "Pho.Infrastructure/"]
 COPY ["src/Pho.Web/Pho.Web.csproj", "Pho.Web/"]
 RUN dotnet restore "Pho.Web/Pho.Web.csproj"
 COPY src/. .
