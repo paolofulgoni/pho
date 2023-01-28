@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pho.Web", "Pho.Web\Pho.Web.csproj", "{19EA3622-BFCA-4B36-B951-16EB4F9B2E9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pho.Web", "src\Pho.Web\Pho.Web.csproj", "{19EA3622-BFCA-4B36-B951-16EB4F9B2E9D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BE82732A-A122-4648-BDAF-DCC2214DA249}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
