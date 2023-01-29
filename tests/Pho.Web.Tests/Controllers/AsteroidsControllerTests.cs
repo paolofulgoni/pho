@@ -7,16 +7,40 @@ namespace Pho.Web.Tests;
 public class AsteroidsControllerTests
 {
     [Fact]
-    public async Task Get_ReturnsAsteroidsInDescendingDiameterOrder_WhenAsteroidsExist()
+    public async Task Get_ReturnsAsteroidsInDescendingDiameterOrder_WhenHazardousAsteroidsExist()
     {
         // Arrange
-        var smallAsteroid = new Asteroid {Name = "s", Diameter = 1.1, Velocity = 3.2, Date = DateTimeOffset.Now};
-        var mediumAsteroid = new Asteroid {Name = "m", Diameter = 4.5, Velocity = 2.2, Date = DateTimeOffset.Now};
-        var largeAsteroid = new Asteroid {Name = "l", Diameter = 9.3, Velocity = 4.2, Date = DateTimeOffset.Now};
+        var smallAsteroid = new Asteroid
+        {
+            Name = "s",
+            EstimatedMinDiameter = 1.1,
+            EstimatedMaxDiameter = 1.2,
+            CloseApproachVelocity = 9.2,
+            CloseApproachDate = DateTimeOffset.Now,
+            IsPotentiallyHazardous = true
+        };
+        var mediumAsteroid = new Asteroid
+        {
+            Name = "m",
+            EstimatedMinDiameter = 4.1,
+            EstimatedMaxDiameter = 4.2,
+            CloseApproachVelocity = 3.2,
+            CloseApproachDate = DateTimeOffset.Now,
+            IsPotentiallyHazardous = true
+        };
+        var largeAsteroid = new Asteroid
+        {
+            Name = "l",
+            EstimatedMinDiameter = 16.1,
+            EstimatedMaxDiameter = 18.2,
+            CloseApproachVelocity = 6.2,
+            CloseApproachDate = DateTimeOffset.Now,
+            IsPotentiallyHazardous = true
+        };
 
-        var asteroidServiceMock = new Mock<IAsteroidService>();
+        var asteroidServiceMock = new Mock<IHazardousAsteroidsService>();
         asteroidServiceMock
-            .Setup(m => m.GetLargestPotentiallyHazardousAsteroids(It.IsAny<int>()))
+            .Setup(m => m.GetLargestHazardousAsteroids(It.IsAny<int>(), It.IsAny<int>()))
             .ReturnsAsync(new List<Asteroid> {mediumAsteroid, smallAsteroid, largeAsteroid});
 
         var controller = new AsteroidsController(asteroidServiceMock.Object);
@@ -30,34 +54,34 @@ public class AsteroidsControllerTests
             first =>
             {
                 first.Name.Should().Be(largeAsteroid.Name);
-                first.Diameter.Should().Be(largeAsteroid.Diameter);
-                first.Velocity.Should().Be(largeAsteroid.Velocity);
-                first.Date.Should().Be(largeAsteroid.Date);
+                first.Diameter.Should().Be(largeAsteroid.GetAverageDiameter());
+                first.Velocity.Should().Be(largeAsteroid.CloseApproachVelocity);
+                first.Date.Should().Be(largeAsteroid.CloseApproachDate);
             },
             second =>
             {
                 second.Name.Should().Be(mediumAsteroid.Name);
-                second.Diameter.Should().Be(mediumAsteroid.Diameter);
-                second.Velocity.Should().Be(mediumAsteroid.Velocity);
-                second.Date.Should().Be(mediumAsteroid.Date);
+                second.Diameter.Should().Be(mediumAsteroid.GetAverageDiameter());
+                second.Velocity.Should().Be(mediumAsteroid.CloseApproachVelocity);
+                second.Date.Should().Be(mediumAsteroid.CloseApproachDate);
             },
             third =>
             {
                 third.Name.Should().Be(smallAsteroid.Name);
-                third.Diameter.Should().Be(smallAsteroid.Diameter);
-                third.Velocity.Should().Be(smallAsteroid.Velocity);
-                third.Date.Should().Be(smallAsteroid.Date);
+                third.Diameter.Should().Be(smallAsteroid.GetAverageDiameter());
+                third.Velocity.Should().Be(smallAsteroid.CloseApproachVelocity);
+                third.Date.Should().Be(smallAsteroid.CloseApproachDate);
             });
     }
-    
-    
+
+
     [Fact]
-    public async Task Get_ReturnsNoAsteroids_WhenAsteroidsDoNoExist()
+    public async Task Get_ReturnsNoAsteroids_WhenNoHazardousAsteroidsExist()
     {
         // Arrange
-        var asteroidServiceMock = new Mock<IAsteroidService>();
+        var asteroidServiceMock = new Mock<IHazardousAsteroidsService>();
         asteroidServiceMock
-            .Setup(m => m.GetLargestPotentiallyHazardousAsteroids(It.IsAny<int>()))
+            .Setup(m => m.GetLargestHazardousAsteroids(It.IsAny<int>(), It.IsAny<int>()))
             .ReturnsAsync(Enumerable.Empty<Asteroid>());
 
         var controller = new AsteroidsController(asteroidServiceMock.Object);

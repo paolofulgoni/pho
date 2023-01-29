@@ -1,5 +1,6 @@
 using Microsoft.OpenApi.Models;
 using Pho.Core;
+using Pho.Infrastructure;
 using System.Reflection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddCoreServices();
+builder.Services.AddNasaNeoService();
 
 WebApplication app = builder.Build();
 

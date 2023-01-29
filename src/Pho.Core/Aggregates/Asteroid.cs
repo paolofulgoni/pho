@@ -1,9 +1,13 @@
 namespace Pho.Core.Aggregates;
 
-public class Asteroid
+public record Asteroid
 {
     public string Name { get; init; } = string.Empty;
-    public double Diameter { get; init; }
-    public double Velocity { get; init; }
-    public DateTimeOffset Date { get; init; }
+    public double EstimatedMinDiameter { get; init; }
+    public double EstimatedMaxDiameter { get; init; }
+    public double CloseApproachVelocity { get; init; }
+    public DateTimeOffset CloseApproachDate { get; init; }
+    public bool IsPotentiallyHazardous { get; init; }
+
+    public double GetAverageDiameter() => (EstimatedMinDiameter + EstimatedMaxDiameter) / 2;
 }

@@ -12,11 +12,12 @@ namespace Pho.Web.Controllers
     [Produces(MediaTypeNames.Application.Json)]
     public class AsteroidsController : ControllerBase
     {
-        private readonly IAsteroidService _asteroidService;
+        private const int _maxAsteroids = 3;
+        private readonly IHazardousAsteroidsService _hazardousAsteroidsService;
 
-        public AsteroidsController(IAsteroidService asteroidService)
+        public AsteroidsController(IHazardousAsteroidsService hazardousAsteroidsService)
         {
-            _asteroidService = asteroidService;
+            _hazardousAsteroidsService = hazardousAsteroidsService;
         }
 
         /// <summary>
@@ -29,7 +30,7 @@ namespace Pho.Web.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<AsteroidViewModel>>> Get([Required, Range(0, 1000)] int days)
         {
-            var asteroids = await _asteroidService.GetLargestPotentiallyHazardousAsteroids(days);
+            var asteroids = await _hazardousAsteroidsService.GetLargestHazardousAsteroids(days, _maxAsteroids);
 
             var response = asteroids
                 .Select(asteroid => AsteroidViewModel.From(asteroid))

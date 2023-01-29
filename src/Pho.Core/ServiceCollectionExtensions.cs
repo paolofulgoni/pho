@@ -7,7 +7,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCoreServices(this IServiceCollection services)
     {
-        services.AddScoped<IAsteroidService, AsteroidService>();
+        services.AddScoped<IHazardousAsteroidsService, HazardousAsteroidsService>();
 
         return services;
     }
