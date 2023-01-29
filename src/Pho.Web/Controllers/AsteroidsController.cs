@@ -33,9 +33,10 @@ namespace Pho.Web.Controllers
 
             var response = asteroids
                 .Select(asteroid => AsteroidViewModel.From(asteroid))
-                .OrderByDescending(asteroidViewModel => asteroidViewModel.Diameter);
+                .OrderByDescending(asteroidViewModel => asteroidViewModel.Diameter)
+                .ToList();
 
-            return Ok(response);
+            return response;
         }
     }
 }
