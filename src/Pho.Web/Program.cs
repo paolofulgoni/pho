@@ -1,4 +1,6 @@
+using Microsoft.OpenApi.Models;
 using Pho.Core;
+using System.Reflection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +10,14 @@ builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Potentially Hazardous Object (PHO) API", Version = "v1" });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var filePath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(filePath);
+});
 
 builder.Services.AddCoreServices();
 
