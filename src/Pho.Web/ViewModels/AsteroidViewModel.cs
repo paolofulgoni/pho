@@ -7,7 +7,7 @@ public class AsteroidViewModel
     /// <summary>
     /// Asteroid name
     /// </summary>
-    public string Name { get; init; }
+    public string Name { get; init; } = string.Empty;
     
     /// <summary>
     /// Asteroid estimated diameter in kilometers
