@@ -137,6 +137,7 @@ A few things I wanted to do, but didn't have enough time:
 * Add Integration tests, by mocking the third-party Nasa API
 * Add retry and circuit breaker policies to external HTTP calls
 * Hide the Nasa API key (which is in the querystring) from logs
+* Move all NuGet packages versions to the `Directory.Packages.props` file
 
 ## 🙏 Credits
 
