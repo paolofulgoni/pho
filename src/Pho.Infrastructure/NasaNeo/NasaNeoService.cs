@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Pho.Core.Aggregates;
 using Pho.Core.Interfaces;
 using Pho.Infrastructure.NasaNeo.Dto;
+using System.Globalization;
 using System.Text.Json;
 
 namespace Pho.Infrastructure.NasaNeo;
@@ -69,8 +70,9 @@ public class NasaNeoService : INearEarthAsteroidsService
                     nearEarthObject.EstimatedDiameter[EstimatedDiameter.Kilometers].EstimatedDiameterMin,
                 EstimatedMaxDiameter =
                     nearEarthObject.EstimatedDiameter[EstimatedDiameter.Kilometers].EstimatedDiameterMax,
-                CloseApproachVelocity = Convert.ToDouble(
-                    nearEarthObject.CloseApproachData[0].RelativeVelocity[CloseApproachData.KilometersPerHour]),
+                CloseApproachVelocity = double.Parse(
+                    nearEarthObject.CloseApproachData[0].RelativeVelocity[CloseApproachData.KilometersPerHour],
+                    CultureInfo.InvariantCulture),
                 CloseApproachDate = nearEarthObject.CloseApproachData[0].CloseApproachDate,
                 IsPotentiallyHazardous = nearEarthObject.IsPotentiallyHazardousAsteroid
             });
