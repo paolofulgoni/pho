@@ -4,10 +4,25 @@ namespace Pho.Web.ViewModels;
 
 public class AsteroidViewModel
 {
-    public string Name { get; set; }
-    public int Diameter { get; set; }
-    public float Velocity { get; set; }
-    public DateTimeOffset Date { get; set; }
+    /// <summary>
+    /// Asteroid name
+    /// </summary>
+    public string Name { get; init; }
+    
+    /// <summary>
+    /// Asteroid estimated diameter in kilometers
+    /// </summary>
+    public double Diameter { get; init; }
+    
+    /// <summary>
+    /// Asteroid approach velocity in kilometers per hour
+    /// </summary>
+    public double Velocity { get; init; }
+    
+    /// <summary>
+    /// Asteroid approach date
+    /// </summary>
+    public DateTimeOffset Date { get; init; }
     
     public static AsteroidViewModel From(Asteroid asteroid) => new()
     {
