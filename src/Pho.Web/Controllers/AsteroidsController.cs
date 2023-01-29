@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Pho.Web.Controllers
 {
+    /// <summary>
+    /// Asteroids API
+    /// </summary>
     [ApiController]
     [Route("asteroids")]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -15,6 +18,9 @@ namespace Pho.Web.Controllers
         private const int _maxAsteroids = 3;
         private readonly IHazardousAsteroidsService _hazardousAsteroidsService;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public AsteroidsController(IHazardousAsteroidsService hazardousAsteroidsService)
         {
             _hazardousAsteroidsService = hazardousAsteroidsService;

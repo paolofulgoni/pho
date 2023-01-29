@@ -2,6 +2,9 @@ using Pho.Core.Aggregates;
 
 namespace Pho.Web.ViewModels;
 
+/// <summary>
+/// Asteroid
+/// </summary>
 public class AsteroidViewModel
 {
     /// <summary>
@@ -24,6 +27,9 @@ public class AsteroidViewModel
     /// </summary>
     public DateOnly Date { get; private init; }
     
+    /// <summary>
+    /// Creates a new <see cref="AsteroidViewModel"/> from an <see cref="Asteroid"/>
+    /// </summary>
     public static AsteroidViewModel From(Asteroid asteroid) => new()
     {
         Name = asteroid.Name,
