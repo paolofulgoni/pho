@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Pho.Infrastructure\Pho.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers" />
+  </ItemGroup>
+
 </Project>
