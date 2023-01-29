@@ -18,9 +18,6 @@ namespace Pho.Web.Controllers
         private const int _maxAsteroids = 3;
         private readonly IHazardousAsteroidsService _hazardousAsteroidsService;
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
         public AsteroidsController(IHazardousAsteroidsService hazardousAsteroidsService)
         {
             _hazardousAsteroidsService = hazardousAsteroidsService;
