@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pho.Infrastructure", "src\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pho.Web.Tests", "tests\Pho.Web.Tests\Pho.Web.Tests.csproj", "{01757942-B570-4224-872E-8C8A7CB9AD16}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pho.Core.Tests", "tests\Pho.Core.Tests\Pho.Core.Tests.csproj", "{F013D546-E18F-40A0-9CC6-25E3DB3420C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pho.Infrastructure.Tests", "tests\Pho.Infrastructure.Tests\Pho.Infrastructure.Tests.csproj", "{EF090253-83DF-407F-8189-8575EC2B195D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,13 @@ Global
 		{01757942-B570-4224-872E-8C8A7CB9AD16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01757942-B570-4224-872E-8C8A7CB9AD16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01757942-B570-4224-872E-8C8A7CB9AD16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F013D546-E18F-40A0-9CC6-25E3DB3420C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F013D546-E18F-40A0-9CC6-25E3DB3420C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F013D546-E18F-40A0-9CC6-25E3DB3420C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F013D546-E18F-40A0-9CC6-25E3DB3420C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF090253-83DF-407F-8189-8575EC2B195D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF090253-83DF-407F-8189-8575EC2B195D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF090253-83DF-407F-8189-8575EC2B195D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF090253-83DF-407F-8189-8575EC2B195D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
