@@ -16,7 +16,7 @@ public class AsteroidsControllerTests
             EstimatedMinDiameter = 1.1,
             EstimatedMaxDiameter = 1.2,
             CloseApproachVelocity = 9.2,
-            CloseApproachDate = DateTimeOffset.Now,
+            CloseApproachDate = DateOnly.FromDateTime(DateTime.UtcNow),
             IsPotentiallyHazardous = true
         };
         var mediumAsteroid = new Asteroid
@@ -25,7 +25,7 @@ public class AsteroidsControllerTests
             EstimatedMinDiameter = 4.1,
             EstimatedMaxDiameter = 4.2,
             CloseApproachVelocity = 3.2,
-            CloseApproachDate = DateTimeOffset.Now,
+            CloseApproachDate = DateOnly.FromDateTime(DateTime.UtcNow),
             IsPotentiallyHazardous = true
         };
         var largeAsteroid = new Asteroid
@@ -34,7 +34,7 @@ public class AsteroidsControllerTests
             EstimatedMinDiameter = 16.1,
             EstimatedMaxDiameter = 18.2,
             CloseApproachVelocity = 6.2,
-            CloseApproachDate = DateTimeOffset.Now,
+            CloseApproachDate = DateOnly.FromDateTime(DateTime.UtcNow),
             IsPotentiallyHazardous = true
         };
 
@@ -73,7 +73,6 @@ public class AsteroidsControllerTests
                 third.Date.Should().Be(smallAsteroid.CloseApproachDate);
             });
     }
-
 
     [Fact]
     public async Task Get_ReturnsNoAsteroids_WhenNoHazardousAsteroidsExist()

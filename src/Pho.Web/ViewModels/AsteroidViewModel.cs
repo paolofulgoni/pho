@@ -22,7 +22,7 @@ public class AsteroidViewModel
     /// <summary>
     /// Asteroid approach date
     /// </summary>
-    public DateTimeOffset Date { get; private init; }
+    public DateOnly Date { get; private init; }
     
     public static AsteroidViewModel From(Asteroid asteroid) => new()
     {

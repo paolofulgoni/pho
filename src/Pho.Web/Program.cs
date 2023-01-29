@@ -21,7 +21,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddCoreServices();
-builder.Services.AddNasaNeoService();
+builder.Services.AddNasaNeoService(builder.Configuration.GetSection("NasaNeoService"));
 
 WebApplication app = builder.Build();
 
