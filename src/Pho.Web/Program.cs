@@ -1,6 +1,7 @@
 using Microsoft.OpenApi.Models;
 using Pho.Core;
 using Pho.Infrastructure;
+using Pho.Web.Middleware;
 using System.Reflection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
+builder.Services.AddTransient<ExceptionMiddleware>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -32,7 +34,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseExceptionHandler();
+app.UseExceptionHandler(); // This is for unhandled exception
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseAuthorization();
 

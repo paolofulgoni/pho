@@ -34,6 +34,7 @@ namespace Pho.Web.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status502BadGateway)]
         public async Task<ActionResult<IEnumerable<AsteroidViewModel>>> Get([Required, Range(0, 1000)] int days)
         {
             var asteroids = await _hazardousAsteroidsService.GetLargestHazardousAsteroids(days, _maxAsteroids);

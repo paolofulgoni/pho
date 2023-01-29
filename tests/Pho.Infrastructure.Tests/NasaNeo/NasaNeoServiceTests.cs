@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq.Protected;
+using Pho.Core.Exceptions;
 using Pho.Infrastructure.NasaNeo;
 using System.Net;
 using System.Reflection;
@@ -13,7 +14,8 @@ public class NasaNeoServiceTests
     public async Task GetNearEarthAsteroids_ReturnsValidData_WhenThirdPartyServiceResponseIsOk()
     {
         // Arrange
-        var currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        var currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ??
+                               throw new InvalidOperationException();
         var content = File.ReadAllText(Path.Combine(currentDirectory, "TestData", "nasa-neo-response.json"));
 
         var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
@@ -65,7 +67,7 @@ public class NasaNeoServiceTests
     }
 
     [Fact]
-    public void GetNearEarthAsteroids_ThrowsHttpRequestException_WhenThirdPartyServiceRateLimited()
+    public void GetNearEarthAsteroids_ThrowsThirdPartyException_WhenThirdPartyServiceRateLimited()
     {
         // Arrange
 
@@ -98,11 +100,11 @@ public class NasaNeoServiceTests
         };
 
         // Assert
-        act.Should().ThrowAsync<HttpRequestException>().Where(e => e.StatusCode == HttpStatusCode.TooManyRequests);
+        act.Should().ThrowAsync<ThirdPartyServiceException>().Where(e => e.StatusCode == HttpStatusCode.TooManyRequests);
     }
 
     [Fact]
-    public void GetNearEarthAsteroids_ThrowsHttpRequestException_WhenThirdPartyServiceUnauthorized()
+    public void GetNearEarthAsteroids_ThrowsHttpRequestException_WhenThirdPartyServiceApiKeyInvalid()
     {
         // Arrange
         var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
@@ -112,7 +114,8 @@ public class NasaNeoServiceTests
                 ItExpr.IsAny<CancellationToken>())
             .ReturnsAsync(new HttpResponseMessage()
             {
-                StatusCode = HttpStatusCode.Forbidden, Content = new StringContent("API_KEY_MISSING"),
+                StatusCode = HttpStatusCode.Forbidden,
+                Content = new StringContent("API_KEY_INVALID"),
             })
             .Verifiable();
 
@@ -134,6 +137,6 @@ public class NasaNeoServiceTests
         };
 
         // Assert
-        act.Should().ThrowAsync<HttpRequestException>().Where(e => e.StatusCode == HttpStatusCode.Unauthorized);
+        act.Should().ThrowAsync<ThirdPartyServiceException>().Where(e => e.StatusCode == HttpStatusCode.Forbidden);
     }
 }

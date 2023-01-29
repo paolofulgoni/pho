@@ -1,9 +1,11 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Pho.Core.Aggregates;
+using Pho.Core.Exceptions;
 using Pho.Core.Interfaces;
 using Pho.Infrastructure.NasaNeo.Dto;
 using System.Globalization;
+using System.Net;
 using System.Text.Json;
 
 namespace Pho.Infrastructure.NasaNeo;
@@ -38,7 +40,21 @@ public class NasaNeoService : INearEarthAsteroidsService
 
         LogRateLimitHeaders(httpResponse);
 
-        httpResponse.EnsureSuccessStatusCode();
+        switch (httpResponse.StatusCode)
+        {
+            case HttpStatusCode.TooManyRequests:
+                throw new ThirdPartyServiceException("The Nasa NEO service rate limit has been exceeded.",
+                    HttpStatusCode.TooManyRequests);
+            case HttpStatusCode.Unauthorized:
+            case HttpStatusCode.Forbidden:
+                throw new ThirdPartyServiceException("The Nasa NEO service API key is invalid.",
+                    HttpStatusCode.Unauthorized);
+        }
+        
+        // In case of other unhandled error status codes
+        if (!httpResponse.IsSuccessStatusCode)
+            throw new ThirdPartyServiceException("The Nasa NEO service returned an unexpected error.",
+                httpResponse.StatusCode);
 
         await using var responseStream = await httpResponse.Content.ReadAsStreamAsync();
         var response = await JsonSerializer.DeserializeAsync<NasaNeoResponse>(responseStream) ??
