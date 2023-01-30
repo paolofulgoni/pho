@@ -26,13 +26,13 @@ namespace Pho.Web.Controllers
         /// <summary>
         /// Top 3 largest asteroids with potential risk of impact in the next specified days.
         /// </summary>
-        /// <param name="days">Days range from today. It must be between 0 and 1000.</param>
+        /// <param name="days">Days range from today. It must be between 0 and 7.</param>
         /// <returns>Up to 3 asteroids, ordered by descending diameter</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status502BadGateway)]
-        public async Task<ActionResult<IEnumerable<AsteroidViewModel>>> Get([Required, Range(0, 1000)] int days)
+        public async Task<ActionResult<IEnumerable<AsteroidViewModel>>> Get([Required, Range(0, 7)] int days)
         {
             var asteroids = await _hazardousAsteroidsService.GetLargestHazardousAsteroids(days, _maxAsteroids);
 

@@ -138,6 +138,7 @@ A few things I wanted to do, but didn't have enough time:
 * Add retry and circuit breaker policies to external HTTP calls
 * Hide the Nasa API key (which is in the querystring) from logs
 * Move all NuGet packages versions to the `Directory.Packages.props` file
+* Allow days range bigger than 7 days, by making multiple calls to the Nasa API (the API allows only 7 days at a time)
 
 ## 🙏 Credits
 
