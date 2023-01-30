@@ -104,7 +104,7 @@ public class NasaNeoServiceTests
     }
 
     [Fact]
-    public void GetNearEarthAsteroids_ThrowsHttpRequestException_WhenThirdPartyServiceApiKeyInvalid()
+    public void GetNearEarthAsteroids_ThrowsThirdPartyException_WhenThirdPartyServiceApiKeyInvalid()
     {
         // Arrange
         var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);

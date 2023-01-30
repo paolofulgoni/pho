@@ -7,7 +7,7 @@ namespace Pho.Core.Tests.Services;
 public class HazardousAsteroidsServiceTests
 {
     [Fact]
-    public async Task Get_ReturnsAsteroidsInDescendingDiameterOrder_WhenHazardousAsteroidsExist()
+    public async Task GetLargestHazardousAsteroids_ReturnsAsteroidsInDescendingDiameterOrder_WhenHazardousAsteroidsExist()
     {
         // Arrange
         var smallAsteroid = new Asteroid
@@ -37,13 +37,22 @@ public class HazardousAsteroidsServiceTests
             CloseApproachDate = DateOnly.FromDateTime(DateTime.UtcNow),
             IsPotentiallyHazardous = true
         };
+        var xlargeNonHazardousAsteroid = new Asteroid
+        {
+            Name = "l",
+            EstimatedMinDiameter = 36.1,
+            EstimatedMaxDiameter = 28.7,
+            CloseApproachVelocity = 123.2333,
+            CloseApproachDate = DateOnly.FromDateTime(DateTime.UtcNow),
+            IsPotentiallyHazardous = false
+        };
 
         var nearEarthAsteroidServiceMock = new Mock<INearEarthAsteroidsService>();
         nearEarthAsteroidServiceMock
             .Setup(m => m.GetNearEarthAsteroids(
                 DateOnly.FromDateTime(DateTime.UtcNow),
                 DateOnly.FromDateTime(DateTime.UtcNow.AddDays(1))))
-            .ReturnsAsync(new List<Asteroid> {mediumAsteroid, smallAsteroid, largeAsteroid});
+            .ReturnsAsync(new List<Asteroid> {mediumAsteroid, smallAsteroid, largeAsteroid, xlargeNonHazardousAsteroid});
 
         var hazardousAsteroidsService = new HazardousAsteroidsService(nearEarthAsteroidServiceMock.Object);
 
